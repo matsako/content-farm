@@ -30,7 +30,6 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
-        npm install @remotion/cli @remotion/bundler @remotion/renderer remotion react react-dom
         npx remotion --version
         
     - name: Render video
