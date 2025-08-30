@@ -1,6 +1,7 @@
 import React from 'react';
 import { Composition, registerRoot } from 'remotion';
 import { ZyraRealSolve } from './zyra-remotion-template';
+import './fonts/fonts.css';
 
 // Тестовые данные
 const testClipData = {

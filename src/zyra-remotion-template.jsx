@@ -22,12 +22,12 @@ export const ZyraBrandKit = {
     textSecondary: '#FFFFFF'    // все белое
   },
   typography: {
-    main: 'Impact, "Arial Black", sans-serif', // жирный рубленый шрифт
+    main: '"Unbounded", Impact, "Arial Black", sans-serif', // ваш шрифт Unbounded
     size: 58,                   // крупный размер как в ваших видео
-    weight: '900',              // максимальная жирность
+    weight: 'bold',             // используем bold начертание
     lineHeight: 1.1,            // плотный межстрочный интервал
     textTransform: 'uppercase', // заглавные буквы
-    letterSpacing: '0.5px'      // небольшой кернинг
+    letterSpacing: '1px'        // чуть больше кернинг для Unbounded
   },
   layout: {
     safeZone: { top: 120, bottom: 200 }, // безопасные зоны
