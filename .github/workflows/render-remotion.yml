@@ -3,11 +3,6 @@ name: Render Content Farm RealSolve
 on:
   # Запуск вручную через GitHub UI
   workflow_dispatch:
-    inputs:
-      clip_data:
-        description: 'JSON с данными клипа'
-        required: true
-        default: '{"title":"Test","first_line":"GitHub рендер работает!"}'
       
   # Автозапуск при push в main
   push:
@@ -35,9 +30,7 @@ jobs:
     - name: Render video
       run: |
         mkdir -p output
-        npx remotion render src/Root.tsx ZyraRealSolve output/github-render.mp4 \
-          --props='${{ github.event.inputs.clip_data || "{\"title\":\"GitHub Test\",\"first_line\":\"Автоматический рендер!\"}" }}' \
-          --overwrite
+        npx remotion render src/Root.tsx ZyraRealSolve output/github-render.mp4 --overwrite
           
     - name: Upload rendered video
       uses: actions/upload-artifact@v4
