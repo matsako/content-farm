@@ -26,19 +26,17 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
         
     - name: Install dependencies
-      run: npm ci
-      
-    - name: Install Remotion
       run: |
-        npm install @remotion/cli
+        npm install
+        npm install @remotion/cli @remotion/bundler @remotion/renderer remotion react react-dom
         npx remotion --version
         
     - name: Render video
       run: |
-        npx remotion render ZyraRealSolve output/github-render.mp4 \
+        mkdir -p output
+        npx remotion render src/Root.tsx ZyraRealSolve output/github-render.mp4 \
           --props='${{ github.event.inputs.clip_data || "{\"title\":\"GitHub Test\",\"first_line\":\"Автоматический рендер!\"}" }}' \
           --overwrite
           
