@@ -25,12 +25,18 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
+        npm install typescript @types/node
         npx remotion --version
         
     - name: Render video
       run: |
+        echo "📁 Проверяем структуру файлов:"
+        ls -la src/
+        echo "🎬 Проверяем композиции:"
+        npx remotion compositions src/Root.tsx || true
+        echo "🚀 Начинаем рендер:"
         mkdir -p output
-        npx remotion render src/Root.tsx ZyraRealSolve output/github-render.mp4 --overwrite
+        npx remotion render src/Root.tsx ZyraRealSolve output/github-render.mp4 --overwrite --log=verbose
           
     - name: Upload rendered video
       uses: actions/upload-artifact@v4
