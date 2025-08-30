@@ -1,0 +1,56 @@
+name: Render Content Farm RealSolve
+
+on:
+  # Запуск вручную через GitHub UI
+  workflow_dispatch:
+    inputs:
+      clip_data:
+        description: 'JSON с данными клипа'
+        required: true
+        default: '{"title":"Test","first_line":"GitHub рендер работает!"}'
+      
+  # Автозапуск при push в main
+  push:
+    branches: [ main ]
+    paths: [ 'src/**' ]
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Install Remotion
+      run: |
+        npm install @remotion/cli
+        npx remotion --version
+        
+    - name: Render video
+      run: |
+        npx remotion render ZyraRealSolve output/github-render.mp4 \
+          --props='${{ github.event.inputs.clip_data || "{\"title\":\"GitHub Test\",\"first_line\":\"Автоматический рендер!\"}" }}' \
+          --overwrite
+          
+    - name: Upload rendered video
+      uses: actions/upload-artifact@v4
+      with:
+        name: zyra-realsolve-${{ github.run_number }}
+        path: output/github-render.mp4
+        retention-days: 7
+        
+    - name: Show result
+      run: |
+        echo "✅ Рендер завершен!"
+        echo "📁 Видео доступно в Artifacts"
+        ls -la output/
