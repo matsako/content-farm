@@ -12,25 +12,38 @@ import {
   Sequence
 } from 'remotion';
 
-// Базовый бренд-кит (будет обновлен после анализа CapCut)
+// Бренд-кит на основе анализа ваших видео matsako
 export const ZyraBrandKit = {
   colors: {
-    primary: '#000000',
-    accent: '#FFD700', // золотой для акцентов
-    background: '#FFFFFF',
-    textPrimary: '#FFFFFF',
-    textSecondary: '#000000'
+    primary: 'transparent',     // прозрачный фон
+    accent: '#FFFFFF',          // белый для основного текста
+    background: 'transparent',  // без фона для субтитров
+    textPrimary: '#FFFFFF',     // чисто белый текст
+    textSecondary: '#FFFFFF'    // все белое
   },
   typography: {
-    main: 'Arial Black', // будет заменен на ваш
-    size: 52,
-    weight: '900',
-    lineHeight: 1.2
+    main: 'Impact, "Arial Black", sans-serif', // жирный рубленый шрифт
+    size: 58,                   // крупный размер как в ваших видео
+    weight: '900',              // максимальная жирность
+    lineHeight: 1.1,            // плотный межстрочный интервал
+    textTransform: 'uppercase', // заглавные буквы
+    letterSpacing: '0.5px'      // небольшой кернинг
   },
   layout: {
-    safeZone: { top: 100, bottom: 180 }, // безопасные зоны для TikTok/IG
-    speakerArea: { x: '50%', y: '25%', width: '90%', height: '50%' },
-    subtitleArea: { bottom: 150, left: 40, right: 40 }
+    safeZone: { top: 120, bottom: 200 }, // безопасные зоны
+    speakerArea: { x: '50%', y: '30%', width: '90%', height: '60%' },
+    subtitleArea: { 
+      centerX: '50%', 
+      centerY: '50%',  // центр экрана как в ваших видео
+      maxWidth: '85%',
+      left: 30, 
+      right: 30 
+    }
+  },
+  effects: {
+    textShadow: 'none',         // без тени - чистый белый
+    background: 'none',         // без подложки
+    animation: 'subtle'         // мягкие анимации
   }
 };
 
@@ -82,12 +95,16 @@ export const AnimatedSubtitles = ({
           fontFamily: brandKit.typography.main,
           fontWeight: brandKit.typography.weight,
           color: brandKit.colors.textPrimary,
-          textShadow: `3px 3px 0px ${brandKit.colors.textSecondary}`,
-          backgroundColor: 'rgba(0,0,0,0.7)',
-          padding: '15px 25px',
-          borderRadius: '15px',
+          textTransform: brandKit.typography.textTransform,
+          letterSpacing: brandKit.typography.letterSpacing,
           lineHeight: brandKit.typography.lineHeight,
-          wordBreak: 'break-word'
+          textAlign: 'center',
+          textShadow: brandKit.effects.textShadow,
+          background: brandKit.effects.background,
+          padding: '10px 20px',
+          wordBreak: 'break-word',
+          maxWidth: brandKit.layout.subtitleArea.maxWidth,
+          margin: '0 auto'
         }}
       >
         {text}
